@@ -64,16 +64,19 @@ class Address(models.Model):
         GivenName,
         blank=True,
         null=True,
+        on_delete=models.CASCADE,
     )
     last_name = models.ForeignKey(
         LastName,
         null=True,
         blank=True,
+        on_delete=models.CASCADE,
     )
     street = models.ForeignKey(
         Street,
         null=True,
         blank=True,
+        on_delete=models.CASCADE,
     )
     street_nr = models.CharField(
         max_length=10,
