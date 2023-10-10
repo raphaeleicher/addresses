@@ -1,0 +1,40 @@
+{
+    "listeners": {
+        "*:8080": {
+            "pass": "routes"
+        }
+    },
+    "routes": [
+        {
+            "match": {
+                "uri": "/static/*"
+            },
+            "action": {
+                "share": "/app/code$uri",
+                "response_headers": {
+                    "Cache-Control": "max-age=86400",
+                    "CDN-Cache-Control": "max-age=86400"
+                }
+            }
+        },
+        {
+            "action": {
+                "pass": "applications/fdsgui"
+            }
+        }
+    ],
+    "applications": {
+        "fdsgui": {
+            "type": "python 3.11",
+            "processes": {
+                "max": 16,
+                "spare": 4,
+                "idle_timeout": 20
+            },
+            "threads": 2,
+            "path": "/app/code/",
+            "home": "/app/.venv/",
+            "module": "django_project.wsgi"
+        }
+    }
+}
