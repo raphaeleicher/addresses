@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "addresses"
+version = "0.1.0"
+description = ""
+authors = ["Raphaël Eicher <raphael.eicher@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.2.6"
+psycopg = "^3.1.12"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+pylint = "^3.0.1"
+autopep8 = "^2.0.4"
+djlint = "^1.34.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
