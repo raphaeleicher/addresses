@@ -1,3 +1,20 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import UpdateView, DeleteView
 
-# Create your views here.
+from .models import Address
+
+
+class AddressListView(ListView):
+    model = Address
+
+
+class AddressDetailView(DetailView):
+    model = Address
+
+
+class AddressUpdateView(UpdateView):
+    model = Address
+
+
+class AddressDeleteView(DeleteView):
+    model = Address
