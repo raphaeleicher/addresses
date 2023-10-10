@@ -1,10 +1,10 @@
-FROM docker.io/library/unit:1.31.0-python3.11 as base
+FROM docker.io/library/unit:1.31.0-python3.11 as addr_base
 ENV PYTHONUNBUFFERED 1
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
 
-FROM base as builder
+FROM addr_base as addr_builder
 WORKDIR /app
 RUN pip install poetry==1.6.1 && \
     touch README.md
@@ -16,11 +16,11 @@ COPY pyproject.toml poetry.lock ./
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --only main --no-root
 
 
-FROM base as runtime
+FROM addr_base as addr_runtime
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 WORKDIR /app/code
-COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+COPY --from=addr_builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 ADD ./django_project/ /app/code/
 RUN chown -R unit:unit /app/code && \
     python manage.py collectstatic --clear --noinput

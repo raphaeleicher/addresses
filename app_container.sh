@@ -3,7 +3,7 @@
 function start_app {
 	env=$1
 	podman run \
-		--pod pod-addresses-app \
+		--pod pod-addresses \
 		-d \
 		--name addresses-app \
 		--volume ./.env-tst:/app/code/django_project/.env:Z \
@@ -12,7 +12,7 @@ function start_app {
 		-l traefik.http.services.addresses-app.loadbalancer.server.port=8080 \
 		-l traefik.http.routers.addresses-app.tls=false \
 		--replace \
-		fdsgui-app:latest
+		addresses:latest
 }
 
 start_app
